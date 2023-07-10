@@ -6,11 +6,16 @@ import axios from 'axios';
 class App extends Component {
 
   handleSubmit(e) {
-
+  
+    
+    e.preventDefault();
+    const prompt = "solar panels";
+    const data = { data: prompt };
+    console.log(prompt);
      const options = {
        method: 'POST',
        url: 'https://vcf87egfsl.execute-api.us-east-1.amazonaws.com/Stage/octank',
-       data: JSON.stringify('{"message": "enjoy world"}'),
+       data: JSON.stringify(data),
       withCredentials: false
        };
     console.log("hello");
@@ -54,8 +59,8 @@ class App extends Component {
           <input
             autoFocus={true}
             type='text'
-            name='searchQuery'
-            id='searchQuery'
+            name='blog'
+            id='blog'
             placeholder='text'
             
           />
