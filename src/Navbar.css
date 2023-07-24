@@ -3,13 +3,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color:#f90 ;
+    background-color: #232f3e ;
     color: #fff;
   }
   
   .navbar-logo {
     font-size: 1.5rem;
     font-weight: bold;
+    font-family : AmazonEmber,Helvetica Neue,Helvetica,Arial,sans-serif
   }
   
   .navbar-nav {
@@ -28,7 +29,7 @@
   }
   
   .nav-link:hover {
-    color: #f9a825;
+    color:#232f3e;
   }
   
   #overlay {

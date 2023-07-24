@@ -7,5 +7,5 @@ const proxy = {
   changeOrigin: true,
 };
 module.exports = function (app) {
-  app.use('/Stage', createProxyMiddleware(proxy));
+  app.use('/Stage/octank', createProxyMiddleware(proxy));
 };

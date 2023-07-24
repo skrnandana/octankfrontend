@@ -3,8 +3,17 @@ import './index.css';
 import AWS from 'aws-sdk';
 import axios from 'axios';
 import Navbar from './Navbar';
+import { saveAs } from 'file-saver'; 
+import { makeBlob, mimicDownload } from "@samvera/image-downloader";
+
+
+const promptOptions = ['Lightning', 'Animated', 'Pencil Drawing'];
+
+
 
 class App extends Component {
+
+
   state = {
     imageArray: [] ,// Initialize the state for imageArray
     summary : "",
@@ -14,8 +23,16 @@ class App extends Component {
     prompt: ''
   };
 
+  handlePromptClick = (prompt) => {
+    this.setState({ prompt });
+  };
+
+ 
+
 
   handleSubmit = (e) => {
+
+
     e.preventDefault();
     const textinput =  document.getElementById('blog').value;
     const { prompt } = this.state; 
@@ -32,6 +49,7 @@ class App extends Component {
     this.setState({ isLoading: true }); 
     console.log("hello");
     axios.request(options).then((res) => {
+    
       console.log(res);
       const imagelinks = (res.data.imageLink);
       const summary = (res.data.summary);
@@ -46,6 +64,7 @@ class App extends Component {
         
       this.setState({ hasInappropriateContent });
       this.setState({ imageArray, summary, clickbait });
+      // const imageUrl1 = = 'https://example.com/image.jpg'
       console.log(imageArray[0]);
       console.log(imageArray[1]);
       console.log(imageArray[2]);
@@ -54,38 +73,60 @@ class App extends Component {
       this.setState({ isLoading: false }); 
       console.error(error);
     });
-    
-
    
   }
   handlePromptChange = (e) => {
     const prompt = e.target.value; // Retrieve the selected prompt option
     this.setState({ prompt });
   };
+
+  handleDownload = (img,e) => {
+    e.preventDefault();
+    console.log(img)
+   saveAs(img, 'image.png'); // Use the saveAs function to trigger the download
+ 
+   
+  };
+  getImageUrl = (option) => {
+    switch (option) {
+      case 'Lightning':
+        return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJBG6DuQeW2NO33gTrhKw6PJVEEbrXvanWDA&usqp=CAU'; // Replace with the actual URL for Digital painting image
+      case 'Pencil Drawing':
+        return 'https://i.etsystatic.com/6246498/r/il/d76603/2165308314/il_fullxfull.2165308314_swzh.jpg'; // Replace with the actual URL for Sharp focus image
+      case 'Animated':
+        return 'https://img.freepik.com/free-vector/front-view-house-with-nature-elements-white-background_1308-66071.jpg?w=2000'; // Replace with the actual URL for Lighting image
+      default:
+        return ''; // Return a default image URL if needed
+    }
+  };
+
   render() {
-    const { prompt, imageArray, summary, clickbait, isLoading,  hasInappropriateContent} = this.state; 
+    const { prompt, imageArray, summary, clickbait, isLoading,  hasInappropriateContent, user} = this.state; 
     // console.log(imageArray);
     return (
       <div>
+        
+
+  
       <Navbar/>
 
       <div className="container">
         <div id="overlay" style={{ display: isLoading ? 'block' : 'none' }}>Loading...</div>
 
-
 <form>
-
-<label className = "inputlabel" htmlFor="blog">Provide the advertisement text: </label>
-<input
+<label className = "inputlabel" htmlFor="blog">Text: </label>
+<textarea
   autoFocus={true}
-  type="textarea"
+  type="text"
   name="blog"
   id="blog"
   placeholder="Advertisement text"
-  className="text-box"
+  className="border"
+  rows="4" cols="50"
 />
 
-<div className="prompt-options">
+{/* 
+ <div className="prompt-options">
               <label htmlFor="prompt-select">Select Image Design:</label>
               <select
                 id="prompt-select"
@@ -96,6 +137,24 @@ class App extends Component {
                 <option value="Sharp focus">Sharp focus</option>
                 <option value="Lighting">Lighting</option>
               </select>
+            </div> */}
+
+
+<div className="prompt-options">
+              <label>Image Design:</label>
+              {promptOptions.map((option, index) => (
+               <button
+            key={index}
+            className={`prompt-option-button ${prompt === option ? 'selected-prompt' : ''}`}
+            onClick={() => this.handlePromptClick(option)}
+            type="button"
+            style={{
+              backgroundImage: `url(${this.getImageUrl(option)})`,
+            }}
+          >
+                  {/* {option} */}
+                </button>
+              ))}
             </div>
 <div>
   <input
@@ -105,6 +164,7 @@ class App extends Component {
     className="submit-button"
   />
 </div>
+
 
 {imageArray.length > 0 ? (
               <div>
@@ -127,12 +187,26 @@ class App extends Component {
                             Warning: Inappropriate image link.
                           </div>
                         ) : (
-                          <img src={image} alt={`Image ${index}`} />
+                           <><img src={image} alt={'Image ${index}'}/><input
+                           type="submit"
+                           download
+                           value="Download"
+                           onClick={(e) => this.handleDownload(image, e)
+                         }
+                           className="submit-button"
+                         /></>
+                          //  {/* <button onClick={ () =>this.handleDownload(image)}>Download</button></> */}
+                          // {/* <a href={image} download>Download</a></> */}
+                        //  {/* ad</button></>  */}
+
                         )}
+     {/* <button onClick={this.handleDownload(image)}>Download Image</button>  */}
                       </div>
                     ))}
+                    
                   </div>
                 )}
+                
               </div>
             ) : null}
           </form>
