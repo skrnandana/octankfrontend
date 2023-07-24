@@ -7,7 +7,7 @@ import { saveAs } from 'file-saver';
 import { makeBlob, mimicDownload } from "@samvera/image-downloader";
 
 
-const promptOptions = ['Lightning', 'Animated', 'Pencil Drawing'];
+const promptOptions = ['lighting', 'animated', 'pencil drawing'];
 
 
 
@@ -89,11 +89,11 @@ class App extends Component {
   };
   getImageUrl = (option) => {
     switch (option) {
-      case 'Lightning':
+      case 'lighting':
         return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJBG6DuQeW2NO33gTrhKw6PJVEEbrXvanWDA&usqp=CAU'; // Replace with the actual URL for Digital painting image
-      case 'Pencil Drawing':
+      case 'pencil drawing':
         return 'https://i.etsystatic.com/6246498/r/il/d76603/2165308314/il_fullxfull.2165308314_swzh.jpg'; // Replace with the actual URL for Sharp focus image
-      case 'Animated':
+      case 'animated':
         return 'https://img.freepik.com/free-vector/front-view-house-with-nature-elements-white-background_1308-66071.jpg?w=2000'; // Replace with the actual URL for Lighting image
       default:
         return ''; // Return a default image URL if needed

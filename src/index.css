@@ -264,14 +264,14 @@ input[type='submit']:hover {
   font-family: AmazonEmber,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
-.prompt-option-button.Animated {
+.prompt-option-button.animated {
   background-image: url('https://img.freepik.com/free-vector/front-view-house-with-nature-elements-white-background_1308-66071.jpg?w=2000');
 }
 
-.prompt-option-button.Pencil Drawing {
+.prompt-option-button.pencil drawing {
   background-image: url('https://i.etsystatic.com/6246498/r/il/d76603/2165308314/il_fullxfull.2165308314_swzh.jpg');
 }
-.prompt-option-button.Lightning {
+.prompt-option-button.lighting {
   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJBG6DuQeW2NO33gTrhKw6PJVEEbrXvanWDA&usqp=CAU');
 }
 
