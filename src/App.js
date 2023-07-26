@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './index.css';
-import AWS from 'aws-sdk';
 import axios from 'axios';
 import Navbar from './Navbar';
 import { saveAs } from 'file-saver'; 
-import { makeBlob, mimicDownload } from "@samvera/image-downloader";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
-const promptOptions = ['lighting', 'animated', 'pencil drawing'];
+
+const promptOptions = ['shining, sunlight,  cinematic lighting', 'animated, cartoon', 'detailed pencil art with strokes'];
 
 
 
@@ -20,7 +20,8 @@ class App extends Component {
     clickbait : "",
     isLoading: false,
     hasInappropriateContent: false,
-    prompt: ''
+    prompt: '',
+    loadingProgress: 0,
   };
 
   handlePromptClick = (prompt) => {
@@ -42,11 +43,19 @@ class App extends Component {
      const options = {
       // headers: { 'Content-Type': 'application/json' },
        method: 'POST',
-       url: 'https://ibnj3ug6q9.execute-api.us-east-1.amazonaws.com/Stage/octank/',
+       url: 'https://nsqm66tmj4.execute-api.us-east-1.amazonaws.com/Stage/octank/',
        data: JSON.stringify(data),
       // withCredentials: false
        };
-    this.setState({ isLoading: true }); 
+    this.setState({ isLoading: true, loadingProgress: 1  }); 
+    const progressTimer = setInterval(() => {
+      if (this.state.loadingProgress < 100) {
+        this.setState((prevState) => ({ loadingProgress: prevState.loadingProgress + 1 }));
+      } else {
+        clearInterval(progressTimer); // Stop the timer when loading is complete
+        this.setState({ isLoading: false });
+      }
+    }, 260); 
     console.log("hello");
     axios.request(options).then((res) => {
     
@@ -56,8 +65,8 @@ class App extends Component {
       const clickbait = (res.data.clickbait);
 
       const imageArray = imagelinks.split(" ");
-      this.setState({ imageArray, isLoading: false }); 
-
+      // this.setState({ imageArray, isLoading: false }); 
+      this.setState({ isLoading: false, loadingProgress: 100 });
       const hasInappropriateContent = imageArray.some((link) =>
           link.startsWith('Inappropriate')
         );
@@ -70,7 +79,8 @@ class App extends Component {
       console.log(imageArray[2]);
       // console.log(imagelinks)
     }).catch( (error) => {
-      this.setState({ isLoading: false }); 
+      // this.setState({ isLoading: false }); 
+      this.setState({ isLoading: false, loadingProgress: 0 });
       console.error(error);
     });
    
@@ -89,11 +99,11 @@ class App extends Component {
   };
   getImageUrl = (option) => {
     switch (option) {
-      case 'lighting':
+      case 'shining, sunlight,  cinematic lighting':
         return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJBG6DuQeW2NO33gTrhKw6PJVEEbrXvanWDA&usqp=CAU'; // Replace with the actual URL for Digital painting image
-      case 'pencil drawing':
+      case 'detailed pencil art with strokes':
         return 'https://i.etsystatic.com/6246498/r/il/d76603/2165308314/il_fullxfull.2165308314_swzh.jpg'; // Replace with the actual URL for Sharp focus image
-      case 'animated':
+      case 'animated, cartoon':
         return 'https://img.freepik.com/free-vector/front-view-house-with-nature-elements-white-background_1308-66071.jpg?w=2000'; // Replace with the actual URL for Lighting image
       default:
         return ''; // Return a default image URL if needed
@@ -110,8 +120,10 @@ class App extends Component {
   
       <Navbar/>
 
-      <div className="container">
-        <div id="overlay" style={{ display: isLoading ? 'block' : 'none' }}>Loading...</div>
+      <div className="container overlay">
+      {isLoading && (
+            <ProgressBar now={this.state.loadingProgress} animated label={`${this.state.loadingProgress}%`} />
+          )}
 
 <form>
 <label className = "inputlabel" htmlFor="blog">Text: </label>
