@@ -17,7 +17,8 @@ module.exports = function(app) {
   app.use(
     '/octank', // Specify the API route you are using in your fetch/axios request
     createProxyMiddleware({
-      target: 'https://nsqm66tmj4.execute-api.us-east-1.amazonaws.com/Stage/', // Replace with your backend server URL
+      // target: 'https://nsqm66tmj4.execute-api.us-east-1.amazonaws.com/Stage/', // Replace with your backend server URL
+      target : process.env.REACT_APP_ENDPOINT,
       changeOrigin: true,
     })
   );

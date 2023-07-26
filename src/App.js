@@ -43,7 +43,8 @@ class App extends Component {
      const options = {
       // headers: { 'Content-Type': 'application/json' },
        method: 'POST',
-       url: 'https://nsqm66tmj4.execute-api.us-east-1.amazonaws.com/Stage/octank/',
+      //  url: 'https://nsqm66tmj4.execute-api.us-east-1.amazonaws.com/Stage/octank/',
+       url : process.env.REACT_APP_ENDPOINT,
        data: JSON.stringify(data),
       // withCredentials: false
        };
