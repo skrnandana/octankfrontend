@@ -36,8 +36,8 @@ class App extends Component {
     };
     const options = {
       method: 'POST',
-      url: process.env.REACT_APP_ENDPOINT,
-      // url : 'https://cma6c097gl.execute-api.us-east-1.amazonaws.com/Stage/octank/',
+      // url: process.env.REACT_APP_ENDPOINT,
+      url : 'https://cma6c097gl.execute-api.us-east-1.amazonaws.com/Stage/octank/',
       data: JSON.stringify(data),
     };
 
@@ -79,10 +79,27 @@ class App extends Component {
     this.setState({ prompt });
   };
   
-  handleDownload = (img, e) => {
+  handleDownload = (url, e) => {
+    // e.preventDefault();
+    // console.log(img);
+    // saveAs(img, 'image.png'); 
     e.preventDefault();
-    console.log(img);
-    saveAs(img, 'image.png'); 
+    fetch(url, {
+      method: 'GET',
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'image.png'; // Replace with the desired file name
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      })
+      .catch((error) => {
+        console.error('Error downloading image:', error);
+      });
   };
 
   getImageUrl = (option) => {
