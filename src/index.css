@@ -1,32 +1,30 @@
-/* Style inputs with type="text", select elements and textareas */
+
 input[type='textarea'],
 select,
 textarea {
-  width: 100%; /* Full width */
-  padding: 50px; /* Some padding */
-  border: 1px solid #ccc; /* Gray border */
+  width: 100%; 
+  padding: 50px; 
+  border: 1px solid #ccc; 
   border: black;
-  border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; /* Make sure that padding and width stays in place */
-  margin-top: 6px; /* Add a top margin */
-  margin-bottom: 16px; /* Bottom margin */
+  border-radius: 4px; 
+  box-sizing: border-box; 
+  margin-top: 6px; 
+  margin-bottom: 16px; 
   overflow-wrap: break-word;
   font-family:AmazonEmber,Helvetica Neue,Helvetica,Arial,sans-serif;
-  resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+  resize: vertical; 
 }
 .selected-prompt {
   filter: brightness(50%); 
   background-color: #ccc;
  
 }
-/*background-color: #007bff; /* Change this to your desired color for the selected button 
-color: #fff; Change this to your desired text color for the selected button*/
+
 .border{
   border: 2px solid black;
   padding: 10px;
 }
 
-/* Style the submit button with a specific background color etc */
 input[type='submit'] {
   background-color: 333;
   color: white;
@@ -37,13 +35,11 @@ input[type='submit'] {
   font-family: AmazonEmber,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
-/* When moving the mouse over the submit button, add a darker green color */
 input[type='submit']:hover {
   background-color: f90;
   font-family: AmazonEmber,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
-/* Add a background color and some padding around the form */
 .container {
   border-radius: 5px;
   background-color: #f2f2f2;
@@ -96,17 +92,15 @@ input[type='submit']:hover {
   max-height: 200px;}
 
 
- /* The alert message box */
 .alert {
   padding: 20px;
   font-family: AmazonEmber,Helvetica Neue,Helvetica,Arial,sans-serif;
-  background-color: #f44336; /* Red */
+  background-color: #f44336; 
   color: white;
   margin-bottom: 15px;
   display: none;
 }
 
-/* The close button */
 .closebtn {
   margin-left: 15px;
   color: white;
@@ -246,8 +240,6 @@ input[type='submit']:hover {
   }
 }
 
-
-/* index.css (or your CSS file) */
 .prompt-option-button {
   display: inline-block;
   width: 120px;

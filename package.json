@@ -29,7 +29,8 @@
     "signature-v4": "^2.0.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://nsqm66tmj4.execute-api.us-east-1.amazonaws.com/Stage/octank/",
+  "proxy": "https://cma6c097gl.execute-api.us-east-1.amazonaws.com/Stage/octank/",
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
