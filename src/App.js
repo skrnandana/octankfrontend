@@ -37,6 +37,7 @@ class App extends Component {
     const options = {
       method: 'POST',
       url: process.env.REACT_APP_ENDPOINT,
+      // url : 'https://cma6c097gl.execute-api.us-east-1.amazonaws.com/Stage/octank/',
       data: JSON.stringify(data),
     };
 
@@ -77,7 +78,7 @@ class App extends Component {
     const prompt = e.target.value; 
     this.setState({ prompt });
   };
-
+  
   handleDownload = (img, e) => {
     e.preventDefault();
     console.log(img);
@@ -103,9 +104,6 @@ class App extends Component {
       <div>
         <Navbar/>
         <div className="container">
-          {isLoading && (
-            <ProgressBar now={this.state.loadingProgress} animated label={`${this.state.loadingProgress}%`} />
-          )}
           <form>
             <label className="inputlabel" htmlFor="blog">Text: </label>
             <textarea
@@ -142,14 +140,22 @@ class App extends Component {
                 className="submit-button"
               />
             </div>
+            <br/>
+           
+            {isLoading && (
+                
+            <ProgressBar now={this.state.loadingProgress} animated label={`${this.state.loadingProgress}%`} className="progressbar" style={{ backgroundColor: '#007bff' }}/>
+          
+          )}
+          
 
             {imageArray.length > 0 ? (
               <div>
-                <div>
-                  <h4>Here is your ad summary: {summary}</h4>
+                <div className='summary'>
+                  <p>Here is your ad summary: {summary}</p>
                 </div>
-                <div>
-                  <h4>Here is your ad clickbait: {clickbait}</h4>
+                <div className='caption'>
+                  <p>Here is your ad clickbait: {clickbait}</p>
                 </div>
                 {hasInappropriateContent ? (
                   <div className="warning">
@@ -171,7 +177,7 @@ class App extends Component {
                               download
                               value="Download"
                               onClick={(e) => this.handleDownload(image, e)}
-                              className="submit-button"
+                              className="new"
                             />
                           </>
                         )}
